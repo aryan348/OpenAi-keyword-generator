@@ -6,7 +6,7 @@ import openai
 import argparse
 import re
 
-MAX_LENGTH = 12
+MAX_LENGTH = 32
 
 def main():
     parser = argparse.ArgumentParser()
