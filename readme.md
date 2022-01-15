@@ -8,4 +8,4 @@ chmod +x ./generate_base_layer.sh
 ./generate_base_layer.sh
 
 
-API link : https://zdp8k2d9i1.execute-api.us-east-1.amazonaws.com/prod/
+API link : https://zdp8k2d9i1.execute-api.us-east-1.amazonaws.com/prod/cd
