@@ -1,3 +1,4 @@
+import { AmplifyAuthenticator } from '@aws-amplify/ui-react';
 import React from 'react';
 import Form from './Form';
 import Result from './Result';
@@ -38,9 +39,10 @@ const Aiwriter: React.FC = () => {
 
     return(
         <>
-            <h1>Ai Writer</h1>
-
+            <h1 className="text-3xl">Ai Writer</h1>
+            <AmplifyAuthenticator>
             {displayedElement}
+            </AmplifyAuthenticator>
         </>
     )
 }
