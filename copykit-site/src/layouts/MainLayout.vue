@@ -1,58 +1,86 @@
 <template>
-  <q-layout view="lHh lpR lFr">
-
-    <q-header reveal elevated class="bg-primary text-white" height-hint="98">
+  <q-layout view="lHh Lpr lFf">
+    <q-header elevated>
       <q-toolbar>
-        <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
+        <q-btn
+          flat
+          dense
+          round
+          icon="menu"
+          aria-label="Menu"
+          @click="leftDrawerOpen = !leftDrawerOpen"
+        />
 
         <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
-          </q-avatar>
-          Title
+          Photo App
         </q-toolbar-title>
+        <div class="absolute-right" v-if="loggedIn">
+          {{ this.user }}
+          <q-btn @click="logout()" flat label="LogOut" class="right" />
+        </div>
       </q-toolbar>
-
-      <q-tabs align="left">
-        <q-route-tab to="/page1" label="Page One" />
-        <q-route-tab to="/page2" label="Page Two" />
-        <q-route-tab to="/page3" label="Page Three" />
-      </q-tabs>
     </q-header>
 
-    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
-      <!-- drawer content -->
+    <q-drawer
+      v-model="leftDrawerOpen"
+      show-if-above
+      bordered
+      content-class="bg-grey-1"
+    >
     </q-drawer>
 
-    <q-page-container>
+    <amplify-authenticator v-if="!loggedIn" username-alias="email">
+      <amplify-sign-up
+        slot="sign-up"
+        username-alias="email"
+        :form-fields.prop="formFields"
+      ></amplify-sign-up>
+    </amplify-authenticator>
+
+    <q-page-container v-if="loggedIn">
       <router-view />
     </q-page-container>
-
   </q-layout>
 </template>
 
 
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
+import { auth_logout } from "src/services/cloud";
+import { onAuthUIStateChange } from "@aws-amplify/ui-components";
+import "@aws-amplify/ui-vue";
 
-import { defineComponent, ref } from 'vue'
-
-export default defineComponent({
-  name: 'MainLayout',
-
-  components: {
-    EssentialLink
-  },
-
-  setup () {
-    const leftDrawerOpen = ref(false)
-
+export default {
+  name: "MainLayout",
+  components: {},
+  data() {
     return {
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
+      leftDrawerOpen: false,
+      loggedIn: false,
+      user: "",
+      formFields: [{ type: "email" }, { type: "password" }],
+    };
+  },
+  created() {
+    this.unsubscribeAuth = onAuthUIStateChange((authState, authData) => {
+      if (authState == "signedin") {
+        this.loggedIn = true;
+        this.user = authData.username;
+      } else {
+        this.loggedIn = false;
+        this.user = "";
       }
-    }
-  }
-})
+    });
+  },
+  beforeDestroy() {
+    this.unsubscribeAuth();
+  },
+  methods: {
+    async logout() {
+      const stat = await auth_logout();
+      if (stat.status == "ok") {
+        this.loggedIn = false;
+      }
+    },
+  },
+};
 </script>
