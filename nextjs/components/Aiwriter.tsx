@@ -40,9 +40,9 @@ const Aiwriter: React.FC = () => {
     return(
         <>
             <h1 className="text-3xl">Ai Writer</h1>
-            <AmplifyAuthenticator>
+            {/* <AmplifyAuthenticator> */}
             {displayedElement}
-            </AmplifyAuthenticator>
+            {/* </AmplifyAuthenticator> */}
         </>
     )
 }
