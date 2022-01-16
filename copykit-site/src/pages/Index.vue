@@ -1,4 +1,5 @@
 <template>
+
   <div class="q-pa-md" style="max-width: 400px">
 
     <q-form
@@ -32,6 +33,7 @@
           <q-btn label="Back" type="submit" glossy color="primary" @click="nav"/>
         </q-item-section>
     </q-item>
+    <!-- <q-btn label="login" href="https://myaiwriter.auth.us-east-1.amazoncognito.com/login?client_id=46rmlk5703afedoct5gg70hom3&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=http://localhost:8080/callback" glossy color="primary"/> -->
   </div>
   
 </template>
@@ -39,6 +41,7 @@
 <script>
 import { defineComponent } from 'vue';
 import { api } from 'boot/axios';
+
 
 export default defineComponent({
   name: 'PageIndex',
