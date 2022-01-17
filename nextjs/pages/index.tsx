@@ -7,6 +7,7 @@ import styles from '../styles/Home.module.css'
 import Aiwriter from '../components/Aiwriter'
 
 const Home: NextPage = () => {
+  
   return (
     <div className={styles.container}>
       <Head>

@@ -2,11 +2,9 @@ import { useState,  useEffect } from "react";
 import React from 'react';
 import { Auth } from "aws-amplify";
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
-import { AmplifyAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+import { AmplifyAuthenticator, AmplifySignOut,AmplifySignUp  } from '@aws-amplify/ui-react';
 import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth/lib/types";
-import '../configureamplify'
-import Signin from '../components/Signin'
-
+import '../configureamplify';
 
 const initialState = {email:'',password:'', authCode:''}
 
@@ -23,14 +21,23 @@ const Profile: React.FC = () => {
         });
     }, []);
 
-    return authState === AuthState.SignedIn && user ? (
-        <div className="App">
-            <div>Hello, {user.username}</div>
-            <AmplifySignOut />
-        </div>
-    ) : (
-        <AmplifyAuthenticator />
-    );
+  return authState === AuthState.SignedIn && user ? (
+      <div className="App">
+          <div>Hello, {user.attributes.email}</div>
+          <AmplifySignOut />
+      </div>
+  ) : (
+    <AmplifyAuthenticator>
+    <AmplifySignUp
+      slot="sign-up"
+      formFields={[
+        { type: "username" },
+        { type: "password" },
+        { type: "email" }
+      ]}
+    />
+  </AmplifyAuthenticator>
+  );
 }
 
 export default Profile
