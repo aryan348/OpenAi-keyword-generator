@@ -1,7 +1,3 @@
 // import config from "./aws-exports";
-
 import Amplify from "aws-amplify";
-Amplify.configure({
-    ...config,
-    ssr: true,
-  });
+Amplify.configure();
