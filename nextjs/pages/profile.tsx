@@ -23,7 +23,8 @@ const Profile: React.FC = () => {
 
   return authState === AuthState.SignedIn && user ? (
       <div className="App">
-          <div>Hello, {user.attributes.email}</div>
+        {/* {user.attributes.email} */}
+          <div>Hello, </div> 
           <AmplifySignOut />
       </div>
   ) : (
