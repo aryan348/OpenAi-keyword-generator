@@ -10,6 +10,7 @@
     "test": "jest",
     "cdk": "cdk"
   },
+  
   "devDependencies": {
     "@types/jest": "^26.0.10",
     "@types/node": "10.17.27",
