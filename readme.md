@@ -5,6 +5,7 @@ cdk deploy
 
 <!-- generate base layer -->
 chmod +x ./generate_base_layer.sh
+
 ./generate_base_layer.sh
 
  
